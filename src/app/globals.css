@@ -10,11 +10,18 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --gk-primary: #3f3fba;
+  --gk-accent: #ffb300;
+  --gk-text: #212121;
+  --gk-tabInactive: #b0bec5;
+  --gk-background: #f5f5f5;
+  --gk-baseBackground: #6363d4;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #6363d4;
     --foreground: #ededed;
   }
 }
