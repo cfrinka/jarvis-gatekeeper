@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { visitorService } from "../services/visitors";
 import { Visitor } from "../types/visitor";
 import { useAuth } from "../components/AuthProvider";
-
-interface InBuildingTabProps {
-  checkoutLoading: string | null;
-}
+import { InBuildingTabProps } from "../types/components";
 
 export default function InBuildingTab({ checkoutLoading }: InBuildingTabProps) {
   const { user } = useAuth();

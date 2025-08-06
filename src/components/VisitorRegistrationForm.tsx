@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { visitorService } from "../services/visitors";
 import { useAuth } from "./AuthProvider";
-
-const visitorSchema = z.object({
-  name: z.string().min(1, "Nome é obrigatório"),
-  cpf: z
-    .string()
-    .refine((value) => {
-
-      const numericCPF = value.replace(/\D/g, '');
-      return numericCPF.length === 11;
-    }, "CPF deve ter 11 dígitos válidos"),
-  destination: z.string().min(1, "Sala destino é obrigatória"),
-  dateOfBirth: z.string().optional(),
-  email: z.string().email({ message: "E-mail inválido" }).or(z.literal("")),
-});
-
-type VisitorFormData = z.infer<typeof visitorSchema>;
+import { VisitorFormData, visitorSchema } from "../types/components";
 
 export default function VisitorRegistrationForm() {
   const { user } = useAuth();

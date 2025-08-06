@@ -1,35 +1,18 @@
 import { 
   collection, 
   addDoc, 
-  updateDoc, 
-  doc, 
   getDocs, 
   query, 
   where, 
-  orderBy,
+  updateDoc, 
+  doc, 
+  orderBy, 
   Timestamp 
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { Visitor, VisitorStatus } from '../types/visitor';
+import { RegisterVisitorRequest, CheckoutVisitorRequest, FilterType } from '../types/visitors';
 import { loggingService } from './logging';
-
-export interface RegisterVisitorRequest {
-  name: string;
-  cpf: string;
-  email: string;
-  dateOfBirth: string | null;
-  room: string;
-  currentUserId: string | null;
-  currentUserName: string | null;
-}
-
-export interface CheckoutVisitorRequest {
-  visitorId: string;
-  currentUserId: string | null;
-  currentUserName: string | null;
-}
-
-export type FilterType = 'all' | 'in_building' | 'checked_out';
 
 class VisitorService {
   private readonly COLLECTION_NAME = 'visitors';

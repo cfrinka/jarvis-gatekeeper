@@ -1,15 +1,6 @@
 import { collection, addDoc, getDocs, query, orderBy, limit, Timestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-
-export interface LogEntry {
-  id?: string;
-  action: string;
-  details: string;
-  userId: string | null;
-  userName: string | null;
-  timestamp: string;
-  level: 'info' | 'warning' | 'error';
-}
+import { LogEntry } from '../types/logging';
 
 class LoggingService {
   private readonly COLLECTION_NAME = 'logs';

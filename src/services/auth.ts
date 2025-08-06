@@ -2,24 +2,14 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut, 
-  User as FirebaseUser,
-  onAuthStateChanged
+  onAuthStateChanged, 
+  User as FirebaseUser
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
-import { User } from '../types/user';
 import { loggingService } from './logging';
-
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface RegisterData {
-  email: string;
-  password: string;
-  name: string;
-}
+import { LoginCredentials, RegisterData } from '../types/auth';
+import { User } from '../types/user';
 
 class AuthService {
   async login(credentials: LoginCredentials): Promise<User> {

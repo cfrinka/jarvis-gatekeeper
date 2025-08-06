@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { loggingService, LogEntry } from '../services/logging';
+import { loggingService } from '../services/logging';
+import { LogEntry } from '../types/logging';
 
 const LOG_ACTION_LABELS: Record<string, string> = {
   'USER_LOGIN': 'Login de Usuário',
