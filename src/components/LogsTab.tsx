@@ -8,8 +8,6 @@ const LOG_ACTION_LABELS: Record<string, string> = {
   'VISITOR_REGISTERED': 'Visitante Registrado',
   'VISITOR_CHECKED_OUT': 'Visitante Saiu',
   'VISITOR_UPDATED': 'Visitante Atualizado',
-  'ADMIN_ACTION': 'Ação Administrativa',
-  'SYSTEM_ERROR': 'Erro do Sistema'
 };
 
 const LOG_ACTION_COLORS: Record<string, string> = {
