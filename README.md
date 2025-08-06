@@ -115,15 +115,4 @@ O projeto segue uma **arquitetura em camadas** com separação clara de responsa
 
 ---
 
-**Desenvolvido com ❤️ para facilitar o controle de acesso em ambientes corporativos.**
-
-## 📞 Suporte
-
-Para dúvidas, sugestões ou problemas:
-- 📧 Email: suporte@jarvis-gatekeeper.com
-- 🐛 Issues: [GitHub Issues](https://github.com/seu-usuario/jarvis-gatekeeper/issues)
-- 📖 Wiki: [Documentação Completa](https://github.com/seu-usuario/jarvis-gatekeeper/wiki)
-
----
-
 **Jarvis Gatekeeper** - *Seu porteiro digital inteligente* 🤖✨
