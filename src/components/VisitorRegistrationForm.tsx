@@ -10,7 +10,7 @@ const visitorSchema = z.object({
   cpf: z
     .string()
     .refine((value) => {
-      // Remove mask and check if it has exactly 11 numeric digits
+
       const numericCPF = value.replace(/\D/g, '');
       return numericCPF.length === 11;
     }, "CPF deve ter 11 dígitos válidos"),
@@ -41,7 +41,7 @@ export default function VisitorRegistrationForm() {
 
   const cpf = watch("cpf");
 
-  // Auto-fill form when CPF is complete and matches existing visitor
+
   useEffect(() => {
     const checkCPFAndAutoFill = async () => {
       if (!cpf) {
@@ -51,7 +51,7 @@ export default function VisitorRegistrationForm() {
 
       const cleanCPF = removeCPFMask(cpf);
       
-      // Only search when CPF has 11 digits (complete)
+
       if (cleanCPF.length === 11) {
         setLoadingCPF(true);
         setError(null);
@@ -60,13 +60,13 @@ export default function VisitorRegistrationForm() {
           const existingVisitor = await visitorService.findVisitorByCPF(cleanCPF);
           
           if (existingVisitor) {
-            // Auto-fill the form with existing visitor data
+
             console.log('Auto-filling visitor data:', existingVisitor);
             setValue("name", existingVisitor.name);
             setValue("email", existingVisitor.email || "");
             setValue("dateOfBirth", existingVisitor.dateOfBirth || "");
             console.log('Date of birth from DB:', existingVisitor.dateOfBirth);
-            // Note: destination/room is NOT auto-filled as it may change per visit
+
             setHasRegistration(true);
           } else {
             setHasRegistration(false);
@@ -83,18 +83,18 @@ export default function VisitorRegistrationForm() {
       }
     };
 
-    // Debounce the CPF check to avoid too many API calls
+
     const timeoutId = setTimeout(checkCPFAndAutoFill, 500);
     
     return () => clearTimeout(timeoutId);
   }, [cpf, setValue]);
 
-  // CPF mask function
+
   const formatCPF = (value: string): string => {
-    // Remove all non-numeric characters
+
     const numericValue = value.replace(/\D/g, '');
     
-    // Apply CPF mask: XXX.XXX.XXX-XX
+
     if (numericValue.length <= 3) {
       return numericValue;
     } else if (numericValue.length <= 6) {
@@ -106,12 +106,12 @@ export default function VisitorRegistrationForm() {
     }
   };
 
-  // Remove CPF mask to get only numbers
+
   const removeCPFMask = (value: string): string => {
     return value.replace(/\D/g, '');
   };
 
-  // Handle CPF input change with mask
+
   const handleCPFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const maskedValue = formatCPF(e.target.value);
     setValue("cpf", maskedValue);
@@ -127,16 +127,16 @@ export default function VisitorRegistrationForm() {
         cpf: removeCPFMask(data.cpf),
         email: data.email || '',
         dateOfBirth: data.dateOfBirth || null,
-        room: data.destination, // Using destination as room
+        room: data.destination,
         currentUserId: user?.id || null,
         currentUserName: user?.name || null,
       });
 
-      // Reset form on success
+
       reset();
       setHasRegistration(false);
       
-      // Show success message (you could use a toast library here)
+
       alert("Visitante registrado com sucesso!");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao registrar visitante");

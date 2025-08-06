@@ -39,15 +39,15 @@ export default function InBuildingTab({ checkoutLoading }: InBuildingTabProps) {
         currentUserName: user?.name || 'Unknown'
       });
       
-      // Immediately remove the visitor from the local state for instant UI feedback
+
       setVisitors(prevVisitors => prevVisitors.filter(v => v.id !== visitorId));
       
-      // Also reload the list to ensure consistency
+
       await loadInBuildingVisitors();
     } catch (err) {
       console.error("Checkout error:", err);
       setError(err instanceof Error ? err.message : 'Erro ao fazer checkout');
-      // Reload the list in case of error to restore correct state
+
       await loadInBuildingVisitors();
     }
   };

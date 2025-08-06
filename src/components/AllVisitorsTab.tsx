@@ -8,11 +8,11 @@ export default function AllVisitorsTab() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // Pagination state
+
   const [currentPage, setCurrentPage] = useState(1);
   const [visitorsPerPage] = useState(10);
   
-  // Date filter state
+
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -55,7 +55,7 @@ export default function AllVisitorsTab() {
     }
     
     setFilteredVisitors(filtered);
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1);
   };
 
   const formatDateTime = (timestamp: string | null) => {
@@ -125,7 +125,7 @@ export default function AllVisitorsTab() {
     );
   }
 
-  // Calculate pagination
+
   const indexOfLastVisitor = currentPage * visitorsPerPage;
   const indexOfFirstVisitor = indexOfLastVisitor - visitorsPerPage;
   const currentVisitors = filteredVisitors.slice(indexOfFirstVisitor, indexOfLastVisitor);
@@ -156,7 +156,7 @@ export default function AllVisitorsTab() {
         </button>
       </div>
 
-      {/* Date Filter */}
+
       <div className="mb-6 p-4 bg-gray-50 rounded-lg border text-black">
         <h3 className="text-lg font-semibold text-gray-900 mb-3">Filtro por Data</h3>
         <div className="flex flex-wrap items-center gap-4">
@@ -252,7 +252,7 @@ export default function AllVisitorsTab() {
         </div>
       )}
       
-      {/* Pagination Controls */}
+
       {filteredVisitors.length > 0 && totalPages > 1 && (
         <div className="flex items-center justify-between mt-6 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg">
           <div className="flex items-center text-sm text-gray-700">

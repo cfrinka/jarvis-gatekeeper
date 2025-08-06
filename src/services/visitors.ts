@@ -39,23 +39,23 @@ class VisitorService {
       throw new Error('Name, CPF, and email are required');
     }
 
-    // Validate CPF format (simple validation)
+
     if (!this.isValidCPF(request.cpf)) {
       throw new Error('Invalid CPF format');
     }
 
-    // Validate email format
+
     if (!this.isValidEmail(request.email)) {
       throw new Error('Invalid email format');
     }
 
-    // Check if visitor is already checked in
+
     const existingVisitor = await this.findVisitorByCPF(request.cpf);
     if (existingVisitor && existingVisitor.status === 'in_building') {
       throw new Error(`Visitante ${existingVisitor.name} já está no prédio (${existingVisitor.room}). Faça checkout antes de registrar em nova sala.`);
     }
 
-    // Check room capacity (max 3 visitors per room)
+
     const visitorsInRoom = await this.getVisitorsInRoom(request.room);
     if (visitorsInRoom.length >= 3) {
       throw new Error(`Sala ${request.room} está lotada (máximo 3 visitantes). Escolha outra sala ou aguarde uma vaga.`);
@@ -93,7 +93,7 @@ class VisitorService {
         updatedAt: now.toISOString()
       };
 
-      // Log visitor registration
+
       await loggingService.log({
         action: 'VISITOR_REGISTERED',
         details: `Visitante ${request.name} registrado na ${request.room}`,
@@ -125,7 +125,7 @@ class VisitorService {
         updatedAt: Timestamp.fromDate(now)
       });
 
-      // Get updated visitor data
+
       const visitors = await this.getVisitors({ filter: 'all' });
       const updatedVisitor = visitors.find(v => v.id === request.visitorId);
       
@@ -133,7 +133,7 @@ class VisitorService {
         throw new Error('Visitor not found after checkout');
       }
 
-      // Log visitor checkout
+
       await loggingService.log({
         action: 'VISITOR_CHECKED_OUT',
         details: `Visitante ${updatedVisitor.name} fez checkout da ${updatedVisitor.room}`,
@@ -193,7 +193,7 @@ class VisitorService {
         });
       });
 
-      // Sort by createdAt descending (newest first) since we removed orderBy from filtered queries
+
       visitors.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
       return visitors;
@@ -246,16 +246,16 @@ class VisitorService {
 
 
   private isValidCPF(cpf: string): boolean {
-    // Remove non-numeric characters
+
     const cleanCPF = cpf.replace(/\D/g, '');
     
-    // Check if it has 11 digits
+
     if (cleanCPF.length !== 11) return false;
     
-    // Check if all digits are the same
+
     if (/^(\d)\1{10}$/.test(cleanCPF)) return false;
     
-    // Basic CPF validation algorithm
+
     let sum = 0;
     for (let i = 0; i < 9; i++) {
       sum += parseInt(cleanCPF.charAt(i)) * (10 - i);
@@ -286,7 +286,7 @@ class VisitorService {
     }
 
     try {
-      // Remove any formatting from CPF for consistent search
+
       const cleanCPF = cpf.replace(/\D/g, '');
       
       const q = query(
@@ -300,14 +300,14 @@ class VisitorService {
         return null;
       }
 
-      // Sort results by createdAt in JavaScript to get the most recent
+
       const sortedDocs = querySnapshot.docs.sort((a, b) => {
         const aTime = a.data().createdAt?.toDate?.() || new Date(a.data().createdAt);
         const bTime = b.data().createdAt?.toDate?.() || new Date(b.data().createdAt);
-        return bTime.getTime() - aTime.getTime(); // Most recent first
+        return bTime.getTime() - aTime.getTime();
       });
       
-      // Return the most recent visitor record with this CPF
+
       const doc = sortedDocs[0];
       const data = doc.data();
       

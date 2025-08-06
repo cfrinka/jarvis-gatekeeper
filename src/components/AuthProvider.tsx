@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in
+
     const unsubscribe = authService.onAuthStateChange((user) => {
       setUser(user);
       setLoading(false);
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (data: { email: string; password: string; name: string }) => {
-    const user = await authService.register(data, 'admin@123'); // Using admin password for registration
+    const user = await authService.register(data, 'admin@123');
     setUser(user);
   };
 

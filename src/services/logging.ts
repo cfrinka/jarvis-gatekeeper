@@ -25,7 +25,7 @@ class LoggingService {
       await addDoc(collection(db, this.COLLECTION_NAME), logData);
     } catch (error) {
       console.error('Failed to log entry:', error);
-      // Don't throw error to avoid breaking the main flow
+
     }
   }
 

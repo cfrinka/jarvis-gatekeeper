@@ -48,7 +48,7 @@ class AuthService {
         role: userData.role || 'user'
       };
       
-      // Log successful login
+
       await loggingService.log({
         action: 'USER_LOGIN',
         details: `Usuário ${userData.name} fez login`,
@@ -86,7 +86,7 @@ class AuthService {
         role: 'admin'
       };
 
-      // Save user profile to Firestore
+
       await setDoc(doc(db, 'users', user.id), {
         name: user.name,
         email: user.email,
@@ -94,7 +94,7 @@ class AuthService {
         createdAt: new Date().toISOString()
       });
 
-      // Log successful registration
+
       await loggingService.log({
         action: 'USER_REGISTRATION',
         details: `Novo usuário ${user.name} foi registrado`,
@@ -115,7 +115,7 @@ class AuthService {
       
       await signOut(auth);
       
-      // Log logout if we had user info
+
       if (currentUser) {
         await loggingService.log({
           action: 'USER_LOGOUT',
