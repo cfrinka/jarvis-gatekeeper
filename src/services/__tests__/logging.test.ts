@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { loggingService, LogEntry } from '../logging';
 import { db } from '../../lib/firebase';
 import { 
